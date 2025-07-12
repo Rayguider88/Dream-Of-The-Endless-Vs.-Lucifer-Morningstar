@@ -1,0 +1,40 @@
+class Entity {
+protected:
+    std::string name;
+    int health;
+    int energy;
+    int intellect;
+    int willpower;
+
+public:
+    std::vector<Ability*> abilities;
+
+    Entity(std::string n, int h, int e, int i, int w)
+        : name(n), health(h), energy(e), intellect(i), willpower(w) {}
+
+    virtual void takeDamage(int amount) {
+        health -= amount;
+        if (health < 0) health = 0;
+        std::cout << name << " takes " << amount << " damage. Remaining HP: " << health << "\n";
+    }
+
+    virtual void useAbility(int index, Entity& target) {
+        if (index < 0 || index >= abilities.size()) return;
+        Ability* ab = abilities[index];
+        if (ab->isReady() && energy >= ab->energyCost) {
+            energy -= ab->energyCost;
+            ab->use(*this, target);
+            ab->currentCooldown = ab->cooldown;
+        } else {
+            std::cout << name << " cannot use " << ab->name << " (cooldown or energy).\n";
+        }
+    }
+
+    void endTurn() {
+        for (auto& ab : abilities)
+            ab->tickCooldown();
+    }
+
+    bool isDefeated() const { return health <= 0; }
+    std::string getName() const { return name; }
+};
