@@ -1,0 +1,22 @@
+class EndlessNightmare : public Ability {
+public:
+    EndlessNightmare() : Ability("Endless Nightmare", "Deals mental damage and weakens target", 2, 25) {}
+
+    void use(Entity& caster, Entity& target) override {
+        int damage = caster.intellect + rand() % 15;
+        std::cout << caster.getName() << " uses " << name << "! " << description << "\n";
+        target.takeDamage(damage);
+    }
+};
+
+class Dreamshaping : public Ability {
+public:
+    Dreamshaping() : Ability("Dreamshaping", "Heals or reshapes dream field", 3, 20) {}
+
+    void use(Entity& caster, Entity& target) override {
+        int heal = 20 + rand() % 10;
+        std::cout << caster.getName() << " uses " << name << " to restore " << heal << " HP.\n";
+        // Treating as heal for simplicity
+        caster.takeDamage(-heal);
+    }
+};
