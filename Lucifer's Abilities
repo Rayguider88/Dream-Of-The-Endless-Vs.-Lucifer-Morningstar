@@ -1,0 +1,23 @@
+class WillOfMorningstar : public Ability {
+public:
+    WillOfMorningstar() : Ability("Will of the Morningstar", "Unstoppable divine strike", 2, 30) {}
+
+    void use(Entity& caster, Entity& target) override {
+        int damage = caster.willpower + rand() % 20;
+        std::cout << caster.getName() << " uses " << name << "! " << description << "\n";
+        target.takeDamage(damage);
+    }
+};
+
+class ConceptualRewrite : public Ability {
+public:
+    ConceptualRewrite() : Ability("Conceptual Rewrite", "Resets buffs and alters stats", 3, 25) {}
+
+    void use(Entity& caster, Entity& target) override {
+        std::cout << caster.getName() << " rewrites the rules of reality!\n";
+        // For now, simulate with energy boost
+        caster.takeDamage(-15);
+        caster.energy += 20;
+        std::cout << caster.getName() << "'s energy surged!\n";
+    }
+};
