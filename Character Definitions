@@ -1,0 +1,15 @@
+class Dream : public Entity {
+public:
+    Dream() : Entity("Dream of the Endless", 150, 100, 90, 80) {
+        abilities.push_back(new EndlessNightmare());
+        abilities.push_back(new Dreamshaping());
+    }
+};
+
+class Lucifer : public Entity {
+public:
+    Lucifer() : Entity("Lucifer Morningstar", 180, 120, 85, 95) {
+        abilities.push_back(new WillOfMorningstar());
+        abilities.push_back(new ConceptualRewrite());
+    }
+};
